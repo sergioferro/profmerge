@@ -1,0 +1,14 @@
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/hostpolicy.dll
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/hostfxr.dll
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/profmerge.exe
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/profmerge.deps.json
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/profmerge.runtimeconfig.json
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/profmerge.runtimeconfig.dev.json
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/profmerge.dll
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/win7-x64/profmerge.pdb
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/win7-x64/profmerge.csprojAssemblyReference.cache
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/win7-x64/profmerge.csproj.CoreCompileInputs.cache
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/win7-x64/profmerge.AssemblyInfoInputs.cache
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/win7-x64/profmerge.AssemblyInfo.cs
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/win7-x64/profmerge.dll
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/win7-x64/profmerge.pdb

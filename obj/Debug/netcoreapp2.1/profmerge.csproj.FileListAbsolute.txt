@@ -1,0 +1,11 @@
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/profmerge.csprojAssemblyReference.cache
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/profmerge.csproj.CoreCompileInputs.cache
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/profmerge.AssemblyInfoInputs.cache
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/profmerge.AssemblyInfo.cs
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/profmerge.deps.json
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/profmerge.runtimeconfig.json
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/profmerge.runtimeconfig.dev.json
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/profmerge.dll
+/Users/fsalaman/src/cs/profmerge/bin/Debug/netcoreapp2.1/profmerge.pdb
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/profmerge.dll
+/Users/fsalaman/src/cs/profmerge/obj/Debug/netcoreapp2.1/profmerge.pdb

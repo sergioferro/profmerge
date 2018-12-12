@@ -1,0 +1,4948 @@
+{
+  "paths": {
+    "/bios/{personId}/achievements": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Finds all achievements of a person",
+        "description": "Returns all achievements associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "achievements associated with the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.ExperienceDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Add a new achievement experience",
+        "description": "Add a new achievement experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Achievement experience created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/achievements/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Fetch achievement info",
+        "description": "Returns achievement experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Achievement experience ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Achievement info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedExperienceDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Update achievement experience info",
+        "description": "Update achievement experience info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Achievement ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Achievement experience info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Delete achievement experience",
+        "description": "Delete achievement experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Achievement ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Achievement experience deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/achievements/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Associate attachment with an achievement experience",
+        "description": "Associate attachment with an achievement experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Achievement ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associate with an achievement experience",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/achievements/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Delete achievement experience attachment",
+        "description": "Delete achievement experience attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Achievement ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Achievement experience attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/achievements/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Achievements"
+        ],
+        "summary": "Move up or down achievement ranking",
+        "description": "Move up or down achievement ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Achievement ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Achievement ranking update"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Achievement not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/jobs": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Finds all jobs of a person",
+        "description": "Returns all job experiences associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job experiences associated with the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.ExperienceDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Add a new  job",
+        "description": "Add a new job",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Job added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "int"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/jobs/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Fetch job info",
+        "description": "Returns job experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Job ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job experience info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedExperienceDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Update job info",
+        "description": "Update job experience info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Job ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Delete job",
+        "description": "Delete job experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Job ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job experience deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/jobs/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Associate attachment with job",
+        "description": "Associate attachment with job",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Job ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associated with Job",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or Attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/jobs/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Delete job experience attachment",
+        "description": "Delete job experience attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Job ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job experience attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or Attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/jobs/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Jobs"
+        ],
+        "summary": "Move up or down job ranking",
+        "description": "Move up or down job ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Job ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job ranking updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Job not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/projects": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Finds all projects of a person",
+        "description": "Returns all projects experiences associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project experiences associated with the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.ExperienceDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Add a new project",
+        "description": "Add a new project",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Project added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/projects/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Fetch project info",
+        "description": "Returns project experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project experience info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedExperienceDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Update project info",
+        "description": "Updates projects experience info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Delete project",
+        "description": "Delete project experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/projects/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Associate attachment with project",
+        "description": "Associate attachment with project",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associated with project",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/projects/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Delete project attachment",
+        "description": "Delete project experience attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project experience attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/projects/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Move up or down project ranking",
+        "description": "Move up or down project ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project ranking updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Project not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/education": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Finds all educational experiences of a person",
+        "description": "Returns all educational experiences associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "educational experiences associated with the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.ExperienceDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Add an educational experience",
+        "description": "Add a new educational experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Educational experience added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/education/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Fetch educational experience info",
+        "description": "Returns educational experience info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Project ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Educational experience info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedExperienceDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Update educational experience info",
+        "description": "Update educational experience info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Education experience ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Educational experience info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Delete educational experience",
+        "description": "Delete educational experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Education experience ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Educational experience deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/education/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Associate attachment with an educational experience",
+        "description": "Associate attachment with an education experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Education experience ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associated with an educational experience",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/education/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Delete educational experience attachment",
+        "description": "Delete educational experience attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Education experience ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Educational experience attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/education/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Education"
+        ],
+        "summary": "Move up or down educational experience ranking",
+        "description": "Move up or down educational experience ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Education experience ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Education experience ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Educational experience ranking updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Education experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/publications": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Finds all publications of a person",
+        "description": "Returns all publications associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "publications associated with the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.ExperienceDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Add a publication experience",
+        "description": "Add a publication experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Publication experience added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/publications/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Fetch publication info",
+        "description": "Returns publication experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Publication experience ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publications info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedExperienceDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Update publication experience info",
+        "description": "Update publication experience info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Publication ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveExperienceDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication experience info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Delete publication experience",
+        "description": "Delete publication experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Publication ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication experience deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or experience not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/publications/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Associate attachment with a publication experience",
+        "description": "Associate attachment with a publication experience",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Publication ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associated with publication experience",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/publications/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Delete publication experience attachment",
+        "description": "Delete publication experience attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Publication ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication experience attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Experience not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/publications/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Publications"
+        ],
+        "summary": "Move up or down publication ranking",
+        "description": "Move up or down publication ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Publication ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Publication ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publication ranking updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Publication not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/people/{personId}": {
+      "get": {
+        "operationId": "view",
+        "tags": [
+          "People"
+        ],
+        "summary": "Fetch person info",
+        "description": "Returns personal information from a Bio user",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bio info updated",
+            "schema": {
+              "$ref": "#/definitions/models.PersonDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "People"
+        ],
+        "summary": "Update person info",
+        "description": "Update person info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.PersonDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bio info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/people/{personId}/upload-picture": {
+      "post": {
+        "operationId": "uploadPicture",
+        "tags": [
+          "People"
+        ],
+        "summary": "Update person picture",
+        "description": "Update person picture",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "name": "formData",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Picture updated",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.TorreUserDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}": {
+      "get": {
+        "operationId": "view",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Fetch bio info",
+        "description": "Returns bio info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bio info",
+            "schema": {
+              "$ref": "#/definitions/models.BioDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/json/{personId}": {
+      "get": {
+        "operationId": "viewFull",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Fetch bio info",
+        "description": "Returns bio info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bio info",
+            "schema": {
+              "$ref": "#/definitions/models.CompleteBioDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/upload": {
+      "post": {
+        "operationId": "upload",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Add an attachment group to a bio",
+        "description": "Add an attachment group to a bio",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "name": "formData",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment group added",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.AttachmentDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/external-source": {
+      "post": {
+        "operationId": "addExternalSources",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Add a external link to bio",
+        "description": "Add a external link to bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.MediaGroupDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "External link added",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.AttachmentDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/attachment/{attachmentId}": {
+      "put": {
+        "operationId": "editAttachment",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Update attachment metadata",
+        "description": "Update attachment metadata",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "attachmentId",
+            "type": "string",
+            "format": "int32",
+            "required": true,
+            "description": "Attachment ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateAttachmentDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Attachment metadata updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/attachment/{attachmentId}/resize-image": {
+      "post": {
+        "operationId": "resizeImage",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Resize image attachment",
+        "description": "Resize image attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "attachmentId",
+            "type": "string",
+            "format": "int32",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image size changed and saved.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Add attachment to bio",
+        "description": "Add attachment to bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment added to bio",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "int"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Delete bio attachment",
+        "description": "Delete bio attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Attachment group ID",
+            "required": true,
+            "type": "int"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bio attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/social-networks": {
+      "post": {
+        "operationId": "addSocialNetwork",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Add social-network link to bio",
+        "description": "Add social-network link to bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveSocialNetworkDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Social-network link added to bio",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/social-networks/{socialNetworkId}": {
+      "delete": {
+        "operationId": "disableSocialNetwork",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Delete bio social-network link",
+        "description": "Delete bio social-network link",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "socialNetworkId",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Social-network ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bio social-network link deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or social-network not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/import-resume": {
+      "post": {
+        "operationId": "importResume",
+        "tags": [
+          "Bios"
+        ],
+        "summary": "Import CV info and create/update bio",
+        "description": "Import CV info and create/update bio",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "name": "formData",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Bio created/updated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid file. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/interests": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Finds all interests associated with a bio",
+        "description": "Returns all interests associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interests associated with the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.InterestDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Add a interest",
+        "description": "Add a interest",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveInterestDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Interest added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "int"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/interests/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Fetch interest info",
+        "description": "Returns interest info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interest experience info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedInterestDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or interest not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Update interest info",
+        "description": "Update interest info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveInterestDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interest info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or interest not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Delete interest",
+        "description": "Delete interest",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interest deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or interest not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/interests/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Associate attachment to a interest",
+        "description": "Associate attachment to a interest",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associate to interest",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Interest not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/interests/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Delete interest attachment",
+        "description": "Delete interest attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interest attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Interest not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/interests/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Interests"
+        ],
+        "summary": "Move up or down interest ranking",
+        "description": "Move up or down interest ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interest ranking update"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Interest not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/strengths": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Finds all strengths associated with a bio",
+        "description": "Returns all strengths associated with a bio",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": false,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Strengths associated to the bio",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.StrengthDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Add a strength",
+        "description": "Add a strength",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveStrengthDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Strength added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/strengths/{id}": {
+      "get": {
+        "operationId": "get",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Fetch strength info with more details",
+        "description": "Returns strength with more details",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Interest ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Strength info",
+            "schema": {
+              "$ref": "#/definitions/models.DetailedStrengthDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or strength not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "edit",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Update strength info",
+        "description": "Update strength info",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Strength ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveStrengthDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Strength info updated"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Or strength not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "operationId": "disable",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Delete strength",
+        "description": "Delete strength",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Strength ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Strength deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Or strength not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/strengths/{id}/attachment": {
+      "post": {
+        "operationId": "addAttachment",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Associate attachment with a strength",
+        "description": "Associate attachment with a strength",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Strength ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AttachmentAssociationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attachment associated with strength",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Strength not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/bios/{personId}/strengths/{id}/attachment/{group}": {
+      "delete": {
+        "operationId": "disableAttachment",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Delete strength attachment",
+        "description": "Delete strength attachment",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Strength ID"
+          },
+          {
+            "in": "path",
+            "name": "group",
+            "type": "string",
+            "required": true,
+            "description": "Attachment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Strength attachment deleted"
+          },
+          "404": {
+            "description": "Bio ID not found. Strength not found. Or attachment not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/bios/{personId}/strengths/{id}/rank": {
+      "post": {
+        "operationId": "rank",
+        "tags": [
+          "Strengths"
+        ],
+        "summary": "Move up or down strength ranking",
+        "description": "Move up or down strength ranking",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "type": "string",
+            "required": true,
+            "description": "Bio ID"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "int",
+            "format": "int32",
+            "required": true,
+            "description": "Strength ID"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RankMoveDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Strength ranking update"
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          },
+          "404": {
+            "description": "Bio ID not found. Strength not found.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/users/person": {
+      "get": {
+        "operationId": "person",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Fetch person info based on token",
+        "description": "Returns person info based on token",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User info",
+            "schema": {
+              "$ref": "#/definitions/models.PersonDTO"
+            }
+          },
+          "404": {
+            "description": "Person not found",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/users/sign-out": {
+      "get": {
+        "operationId": "signOut",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Sign-out",
+        "description": "Sign-out",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Sign-out"
+          }
+        }
+      }
+    },
+    "/users/sign-in": {
+      "post": {
+        "operationId": "signIn",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Sign-in",
+        "description": "Sign-in",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SignInDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Sign-in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "int"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/organizations": {
+      "get": {
+        "operationId": "all",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Fetch organizations",
+        "description": "Returns organizations",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "required": true,
+            "description": "Search term"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organizations",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "add",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Add an organization",
+        "description": "Add an organization",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SaveOrganizationDTO"
+            }
+          }
+        ],
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Organization added",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "int"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data on body request. For more information please review exception details.",
+            "schema": {
+              "$ref": "#/definitions/models.ExceptionDTO"
+            }
+          }
+        },
+        "consumes": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "models.DetailedStrengthDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        },
+        "relatedExperiences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "media",
+        "relatedExperiences"
+      ]
+    },
+    "models.SignInDTO": {
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "idToken": {
+          "type": "string"
+        },
+        "publicId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accessToken",
+        "idToken"
+      ]
+    },
+    "models.UpdateAttachmentDTO": {
+      "properties": {
+        "metadata": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "metadata"
+      ]
+    },
+    "models.TorreUserDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "pictureThumbnail": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "pictureApproved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "name",
+        "username",
+        "isActive",
+        "pictureApproved"
+      ]
+    },
+    "models.BioDTO": {
+      "properties": {
+        "person": {
+          "$ref": "#/definitions/models.PersonDTO"
+        },
+        "stats": {
+          "type": "collection.immutable.map[string,int]"
+        }
+      },
+      "required": [
+        "person",
+        "stats"
+      ]
+    },
+    "models.RankMoveDTO": {
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "amount"
+      ]
+    },
+    "models.SaveSocialNetworkDTO": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "address"
+      ]
+    },
+    "models.CompleteBioDTO": {
+      "properties": {
+        "person": {
+          "$ref": "#/definitions/models.PersonDTO"
+        },
+        "stats": {
+          "type": "collection.immutable.map[string,int]"
+        },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.StrengthDTO"
+          }
+        },
+        "jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        },
+        "publications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.InterestDTO"
+          }
+        }
+      },
+      "required": [
+        "person",
+        "stats",
+        "achievements",
+        "strengths",
+        "jobs",
+        "projects",
+        "publications",
+        "education",
+        "interests"
+      ]
+    },
+    "models.SaveInterestDTO": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "relatedExperiences": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "relatedExperiences"
+      ]
+    },
+    "models.DetailedInterestDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        },
+        "relatedExperiences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "media",
+        "relatedExperiences"
+      ]
+    },
+    "models.SaveStrengthDTO": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "relatedExperiences": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "relatedExperiences"
+      ]
+    },
+    "models.AttachmentAssociationDTO": {
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "group"
+      ]
+    },
+    "models.SocialNetworkDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "address"
+      ]
+    },
+    "models.PersonDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "publicId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "showEmail": {
+          "type": "boolean"
+        },
+        "professionalHeadline": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "summaryOfBio": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "claimant": {
+          "type": "boolean"
+        },
+        "featureDiscovery": {
+          "type": "boolean"
+        },
+        "canary": {
+          "type": "boolean"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.SocialNetworkDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "publicId",
+        "name",
+        "showEmail",
+        "claimant",
+        "featureDiscovery",
+        "canary",
+        "media",
+        "links"
+      ]
+    },
+    "models.SaveExperienceDTO": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "contributions": {
+          "type": "string"
+        },
+        "organizations": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "fromMonth": {
+          "type": "string"
+        },
+        "fromYear": {
+          "type": "string"
+        },
+        "toMonth": {
+          "type": "string"
+        },
+        "toYear": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "relatedExperiences": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "required": [
+        "organizations",
+        "strengths",
+        "interests",
+        "relatedExperiences"
+      ]
+    },
+    "models.ExperienceDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "category": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "contributions": {
+          "type": "string"
+        },
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.OrganizationDTO"
+          }
+        },
+        "fromMonth": {
+          "type": "string"
+        },
+        "fromYear": {
+          "type": "string"
+        },
+        "toMonth": {
+          "type": "string"
+        },
+        "toYear": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "organizations",
+        "media"
+      ]
+    },
+    "models.InterestDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.StatsDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "media",
+        "stats"
+      ]
+    },
+    "models.StatsDTO": {
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "category",
+        "count"
+      ]
+    },
+    "models.StrengthDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.StatsDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "media",
+        "stats"
+      ]
+    },
+    "models.OrganizationDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "models.DetailedExperienceDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "category": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "contributions": {
+          "type": "string"
+        },
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.OrganizationDTO"
+          }
+        },
+        "fromMonth": {
+          "type": "string"
+        },
+        "fromYear": {
+          "type": "string"
+        },
+        "toMonth": {
+          "type": "string"
+        },
+        "toYear": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "additionalInfo": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaGroupDTO"
+          }
+        },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.StrengthDTO"
+          }
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.InterestDTO"
+          }
+        },
+        "relatedExperiences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ExperienceDTO"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "organizations",
+        "media",
+        "strengths",
+        "interests",
+        "relatedExperiences"
+      ]
+    },
+    "models.AttachmentDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "personId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "group": {
+          "type": "string"
+        },
+        "attachmentType": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "personId",
+        "group",
+        "attachmentType",
+        "address"
+      ]
+    },
+    "models.MediaDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "address": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address"
+      ]
+    },
+    "models.MediaGroupDTO": {
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "mediaType": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "mediaItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.MediaDTO"
+          }
+        }
+      },
+      "required": [
+        "mediaType",
+        "mediaItems"
+      ]
+    },
+    "models.ExceptionDTO": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object",
+          "title": "jsobject"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "models.SaveOrganizationDTO": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "token": {
+      "type": "apiKey",
+      "name": "X-Auth-Token",
+      "in": "header",
+      "description": "Open https://torre.bio, log in, and open Developer Tools(ctrl+shift+i), navigate to the tab Application and select the option Cookies. There, copy the value of solarr_token"
+    }
+  },
+  "info": {
+    "title": "Torre Bio API",
+    "version": "0.1",
+    "contact": {
+      "name": "API support",
+      "email": "bio@torre.co"
+    },
+    "x-logo": {
+      "url": "https://s3-us-west-2.amazonaws.com/bio-media/static/torrebio-imagetype.png",
+      "backgroundColor": "#FAFAFA"
+    }
+  },
+  "servers": {
+    "url": "https://torre.bio/api/"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "routes"
+    }
+  ]
+}
