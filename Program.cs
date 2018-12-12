@@ -29,9 +29,15 @@ namespace profmerge{
             IRestResponse response = client.Execute(request);
             //Console.WriteLine(response.Content);
             Bio bio = JsonConvert.DeserializeObject<Bio>(response.Content);
-            Console.WriteLine(bio.person.id);
-            Console.WriteLine(bio.person.name);
-            Console.WriteLine(bio.person.professionalHeadline);
+            Console.WriteLine("\nUsing RestSharp (from NuGET for C#)");
+            Console.WriteLine("\nAPI URL: http://torre.bio/api/bios/rhfsalaman");
+            Console.WriteLine("\nMerge Torre Bio info, like Name and professionalHeadline:\n");
+            Console.WriteLine("ID: "+bio.person.id);
+            Console.WriteLine("Name: "+bio.person.name);
+            Console.WriteLine("Professional Headline: "+bio.person.professionalHeadline);
+            Console.WriteLine("\n=======================================");
+            Console.WriteLine("\nWith LinkedIn Profile (TBD)");
+            Console.WriteLine("\n=======================================");
         }
     }
 }
